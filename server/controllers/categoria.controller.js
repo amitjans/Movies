@@ -14,7 +14,7 @@ categoriacontroller.details = async (req, res) => {
 categoriacontroller.create = async (req, res) => {
     const newcategoria = new categoria(req.body);
     await newcategoria.save();
-    res.status(200).json({
+    res.status(201).json({
         status: 'categoria guardada'
     });
 }

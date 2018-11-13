@@ -25,6 +25,7 @@ app.use('/api/actores', require('./server/routes/actor.routes'));
 app.use('/api/categorias', require('./server/routes/categoria.routes'));
 app.use('/api/directores', require('./server/routes/director.routes'));
 app.use('/api/generos', require('./server/routes/genero.routes'));
+app.use('/api/nacionalidades', require('./server/routes/nacionalidad.routes'));
 app.use('/api/peliculas', require('./server/routes/pelicula.routes'));
 
 //Servidor

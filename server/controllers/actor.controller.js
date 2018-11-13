@@ -14,7 +14,7 @@ actorcontroller.details = async (req, res) => {
 actorcontroller.create = async (req, res) => {
     const newactor = new actor(req.body);
     await newactor.save();
-    res.status(200).json({
+    res.status(201).json({
         status: 'actor guardado'
     });
 }
