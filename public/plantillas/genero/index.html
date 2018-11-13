@@ -1,0 +1,16 @@
+<a href="#!/generos/create">Adicionar g&eacute;nero</a>
+
+<div class="row" ng-controller="generos">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>G&eacute;nero</th>
+          </tr>
+        </thead>
+        <tbody>
+            <td ng-repeat="l in listgeneros">
+                <tr>{{ l.descripcion }}</tr>
+            </td>
+        </tbody>
+      </table>
+</div>

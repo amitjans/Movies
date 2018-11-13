@@ -12,8 +12,8 @@ generocontroller.details = async (req, res) => {
 }
 
 generocontroller.create = async (req, res) => {
-    const genero = new genero(req.body);
-    await genero.save();
+    const newgenero = new genero(req.body);
+    await newgenero.save();
     res.json({
         status: 'genero guardado'
     });

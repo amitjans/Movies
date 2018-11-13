@@ -12,8 +12,8 @@ directorcontroller.details = async (req, res) => {
 }
 
 directorcontroller.create = async (req, res) => {
-    const director = new director(req.body);
-    await director.save();
+    const newdirector = new director(req.body);
+    await newdirector.save();
     res.status(200).json({
         status: 'director guardado'
     });

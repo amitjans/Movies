@@ -12,8 +12,8 @@ actorcontroller.details = async (req, res) => {
 }
 
 actorcontroller.create = async (req, res) => {
-    const actor = new actor(req.body);
-    await actor.save();
+    const newactor = new actor(req.body);
+    await newactor.save();
     res.status(200).json({
         status: 'actor guardado'
     });
@@ -29,7 +29,7 @@ actorcontroller.edit = async (req, res) => {
 
 actorcontroller.delete = async (req, res) => {
     const { id } = req.params;
-    const actor = {
+    const newactor = {
         estado: false
     }
     await actor.findByIdAndUpdate(id, { $set: actor });

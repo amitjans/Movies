@@ -27,7 +27,10 @@
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#!/actores">Actores</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#!/generos">Generos</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -53,7 +56,7 @@
   </nav>
 
   <!-- Begin page -->
-  <main ng-view>
+  <main class="container" ng-view>
 
   </main>
 
@@ -69,23 +72,57 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
     crossorigin="anonymous"></script>
   <script>
-    var movies = angular.module('movies', ['ngRoute'])
+    var movies = angular.module('movies', ['ngRoute']);
     movies.config(['$locationProvider', '$routeProvider',
-    function config($locationProvider, $routeProvider) {
-      $locationProvider.hashPrefix('!');
-      $routeProvider.
+      function config($locationProvider, $routeProvider) {
+        $locationProvider.hashPrefix('!');
+        $routeProvider.
         when('/inicio', {
           templateUrl: '/plantillas/inicio.html'
         }).
-        when('/actor', {
+        when('/actores', {
           templateUrl: '/plantillas/actor/listado.html'
         }).
-        when('/actor/listado', {
-          redirectTo: '/actor'
+        when('/actores/listado', {
+          redirectTo: '/actores'
+        }).
+        when('/generos', {
+          templateUrl: '/plantillas/genero/index.html',
+          controller: 'generos'
+        }).when('/generos/create', {
+          templateUrl: '/plantillas/genero/create.html',
+          controller: 'generos'
         }).
         otherwise('/inicio');
-    }
-  ])
+      }
+    ]);
+
+    movies.controller('generos', ['$scope', '$http', function ($scope, $http) {
+      $scope.listgeneros = [];
+
+      $scope.listgenero = function () {
+        $http({
+          method: 'GET',
+          url: '/api/generos'
+        }).then(function successCallback(response) {
+           listgeneros = response.data;
+           console.log(listgeneros);
+        }, function errorCallback(response) {
+        });
+      }
+
+      $scope.addgenero = function () {
+        console.log("click");
+        $http.post('/api/generos', '{ descripcion: ' + $scope.genero + ' }'
+        ).then(function successCallback(response) {
+            console.log(response.data);
+        }, function errorCallback(response) {
+        });
+      }
+
+      $scope.listgenero();
+    }])
   </script>
 </body>
+
 </html>

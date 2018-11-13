@@ -12,8 +12,8 @@ peliculacontroller.details = async (req, res) => {
 }
 
 peliculacontroller.create = async (req, res) => {
-    const pelicula = new pelicula(req.body);
-    await pelicula.save();
+    const newpelicula = new pelicula(req.body);
+    await newpelicula.save();
     res.json({
         status: 'pelicula guardada'
     });
