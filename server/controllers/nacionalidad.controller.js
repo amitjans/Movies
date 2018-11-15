@@ -1,31 +1,21 @@
 const nacionalidad = require('../models/nacionalidad');
-const director = require('../models/director');
 const nacionalidadcontroller = {};
 
 nacionalidadcontroller.getList = async (req, res) => {
-    const nacionalidads = await nacionalidad.find();
+    const nacionalidads = await nacionalidad.find().populate('directores').populate('actores');
     res.status(200).json(nacionalidads);
 }
 
-nacionalidadcontroller.details = async (req, res) => {
-    const nacionalidad = await nacionalidad.findById(req.params.id);
-    res.status(200).json(nacionalidad);
-}
+nacionalidadcontroller.details = async (req, res) => res.status(200).json(await nacionalidad.findById(req.params.id).populate('directores').populate('actores'));
 
 nacionalidadcontroller.create = async (req, res) => {
-    await new nacionalidad(req.body).save();
-    res.status(201).json({
-        status: 'nacionalidad guardada'
-    });
+    var nac = new nacionalidad(req.body);
+    await nac.save();
+    res.status(201).json(nac);
 }
 
-nacionalidadcontroller.createdirector = async (req, res) => {
-    const nacionalidad = await nacionalidad.findById(req.params.id);
-    await new director(req.body).save();
-    nacionalidad.directores
-    res.status(201).json({
-        status: 'nacionalidad guardada'
-    });
+nacionalidadcontroller.directores = async (req, res) => {
+    res.status(200).json(await nacionalidad.findById(req.params.id).directores);
 }
 
 nacionalidadcontroller.edit = async (req, res) => {

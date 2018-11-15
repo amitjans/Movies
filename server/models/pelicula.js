@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const PeliculaSchema = new Schema({
     titulo: { type: String, require: true },
-    id_categoría: { type: Schema.Types.ObjectId, ref: 'categoria', require: true },
+    ano: { type: Number, require: true },
+    duracion: { type: Number, require: true },
+    pais: { type: Schema.Types.ObjectId, ref: 'pais', require: true },
+    categoria: { type: Schema.Types.ObjectId, ref: 'categoria', require: true },
+    genero: [{ type: Schema.Types.ObjectId, ref: 'genero' }],
+    director: { type: Schema.Types.ObjectId, ref: 'director', require: true },
     actor: [{ type: Schema.Types.ObjectId, ref: 'actor' }],
-    género: [{ type: Schema.Types.ObjectId, ref: 'genero' }],
-    ano: { type: String, require: true },
-    pais: { type: String, require: true },
-    duracion: { type: String, require: true },
-    score: { type: String, require: true },
-    Director: { type: Schema.Types.ObjectId, ref: 'director', require: true },
+    usuariopelicula: [{ type: Schema.Types.ObjectId, ref: 'usuariopelicula' }],
+    score: { type: Number, default: 0 }
 });
 
 module.exports = mongoose.model('pelicula', PeliculaSchema);

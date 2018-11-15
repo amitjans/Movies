@@ -5,8 +5,8 @@ const nacionalidad = require('../controllers/nacionalidad.controller');
 
 router.get('/', nacionalidad.getList);
 router.get('/:id', nacionalidad.details);
+router.get('/:id/director', nacionalidad.directores);
 router.post('/', nacionalidad.create);
-router.post('/:id/director', nacionalidad.createdirector);
 router.put('/:id', nacionalidad.edit);
 router.delete('/:id', nacionalidad.delete);
 

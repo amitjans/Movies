@@ -1,22 +1,21 @@
 const actor = require('../models/actor');
+const nacionalidad = require('../models/nacionalidad');
 const actorcontroller = {};
 
 actorcontroller.getList = async (req, res) => {
-    const actors = await actor.find();
+    const actors = await actor.find().populate('nacionalidad');
     res.status(200).json(actors);
 }
 
-actorcontroller.details = async (req, res) => {
-    const actor = await actor.findById(req.params.id);
-    res.status(200).json(actor);
-}
+actorcontroller.details = async (req, res) => res.status(200).json(await actor.findById(req.params.id).populate('nacionalidad'));
 
 actorcontroller.create = async (req, res) => {
+    const nac = await nacionalidad.findById(req.body.nacionalidad);
     const newactor = new actor(req.body);
     await newactor.save();
-    res.status(201).json({
-        status: 'actor guardado'
-    });
+    nac.actores.push(newactor);
+    await nac.save();
+    res.status(201).json(newactor);
 }
 
 actorcontroller.edit = async (req, res) => {

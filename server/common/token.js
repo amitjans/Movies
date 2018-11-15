@@ -7,7 +7,7 @@ jwtoken.ensureToken = (req, res, next) => {
         req.token = split[1];
         next();
     } else {
-        res.status(403).json();
+        res.status(401).json();
     }
 }
 

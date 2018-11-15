@@ -81,7 +81,7 @@
           templateUrl: '/plantillas/inicio.html'
         }).
         when('/actores', {
-          templateUrl: '/plantillas/actor/listado.html'
+          templateUrl: '/plantillas/actor/index.html'
         }).
         when('/actores/listado', {
           redirectTo: '/actores'
@@ -96,33 +96,9 @@
         otherwise('/inicio');
       }
     ]);
-
-    movies.controller('generos', ['$scope', '$http', function ($scope, $http) {
-      $scope.listgeneros = [];
-
-      $scope.listgenero = function () {
-        $http({
-          method: 'GET',
-          url: '/api/generos'
-        }).then(function successCallback(response) {
-           listgeneros = response.data;
-           console.log(listgeneros);
-        }, function errorCallback(response) {
-        });
-      }
-
-      $scope.addgenero = function () {
-        console.log("click");
-        $http.post('/api/generos', '{ descripcion: ' + $scope.genero + ' }'
-        ).then(function successCallback(response) {
-            console.log(response.data);
-        }, function errorCallback(response) {
-        });
-      }
-
-      $scope.listgenero();
-    }])
   </script>
+  <script src="/js/genero.js"></script>
+  <script src="/js/actor.js"></script>
 </body>
 
 </html>

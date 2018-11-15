@@ -8,9 +8,11 @@
           </tr>
         </thead>
         <tbody>
-            <td ng-repeat="l in listgeneros">
-                <tr>{{ l.descripcion }}</tr>
-            </td>
+            <tr ng-repeat="l in listgeneros">
+                <td>{{ l.descripcion }}</td>
+            </tr>
         </tbody>
       </table>
+
+      <button type="button" ng-click="listgenero">Actualizar</button>
 </div>

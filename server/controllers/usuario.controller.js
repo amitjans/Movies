@@ -16,7 +16,7 @@ usuariocontroller.singup = (req, res) => {
                     contrasena: hash
                 });
                 await user.save();
-                res.status(200).json({
+                res.status(201).json({
                     status: 'Usuario guardado'
                 });
             }

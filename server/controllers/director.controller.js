@@ -1,4 +1,5 @@
 const director = require('../models/director');
+const nacionalidad = require('../models/nacionalidad');
 const directorcontroller = {};
 
 directorcontroller.getList = async (req, res) => {
@@ -6,17 +7,17 @@ directorcontroller.getList = async (req, res) => {
     res.status(200).json(directores);
 }
 
-directorcontroller.details = async (req, res) => {
-    const director = await director.findById(req.params.id);
-    res.status(200).json(director);
-}
+directorcontroller.details = async (req, res) => res.status(200).json(await director.findById(req.params.id).populate('nacionalidad'));
 
 directorcontroller.create = async (req, res) => {
+    const nac = await nacionalidad.findById(req.body.nacionalidad);
     const newdirector = new director(req.body);
+
+    newdirector.nacionalidad = nac;
     await newdirector.save();
-    res.status(200).json({
-        status: 'director guardado'
-    });
+    nac.directores.push(newdirector);
+    await nac.save();
+    res.status(201).json(newdirector.populate('nacionalidad'));
 }
 
 directorcontroller.edit = async (req, res) => {

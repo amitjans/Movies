@@ -1,0 +1,18 @@
+<a href="#!/actores/create">Adicionar g&eacute;nero</a>
+
+<div class="row" ng-controller="actores">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>Actores</th>
+            <th>Nacionalidad</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="l in listactores">
+                <td>{{ l.nombre }}</td>
+                <td>{{ l.nacionalidad.descripcion }}</td>
+            </tr>
+        </tbody>
+      </table>
+</div>

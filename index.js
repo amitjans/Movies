@@ -26,7 +26,9 @@ app.use('/api/categorias', require('./server/routes/categoria.routes'));
 app.use('/api/directores', require('./server/routes/director.routes'));
 app.use('/api/generos', require('./server/routes/genero.routes'));
 app.use('/api/nacionalidades', require('./server/routes/nacionalidad.routes'));
+app.use('/api/paises', require('./server/routes/pais.routes'));
 app.use('/api/peliculas', require('./server/routes/pelicula.routes'));
+app.use('/api/usuario', require('./server/routes/usuario.routes'));
 
 //Servidor
 app.listen(app.get('port'), () => {
