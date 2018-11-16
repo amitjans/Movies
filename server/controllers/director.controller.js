@@ -3,7 +3,7 @@ const nacionalidad = require('../models/nacionalidad');
 const directorcontroller = {};
 
 directorcontroller.getList = async (req, res) => {
-    const directores = await director.find();
+    const directores = await director.find().populate('nacionalidad');
     res.status(200).json(directores);
 }
 
@@ -30,13 +30,18 @@ directorcontroller.edit = async (req, res) => {
 
 directorcontroller.delete = async (req, res) => {
     const { id } = req.params;
-    const director = {
-        estado: false
-    }
-    await director.findByIdAndUpdate(id, { $set: director });
-    res.status(200).json({
-        status: 'director eliminado'
-    });
+    
+    var temp = await director.findById(id);
+    if (temp.peliculas.length > 0) {
+        res.status(409).json({
+            mensaje: 'No se pudo completar la solicitud. Elimine las peliculas relacionadas.'
+        });
+    } else {
+        await director.findByIdAndDelete(id);
+        res.status(200).json({
+            mensaje: 'Director Eliminado'
+        });
+    }  
 }
 
 module.exports = directorcontroller;

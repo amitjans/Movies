@@ -28,13 +28,19 @@ actorcontroller.edit = async (req, res) => {
 
 actorcontroller.delete = async (req, res) => {
     const { id } = req.params;
-    const newactor = {
-        estado: false
-    }
-    await actor.findByIdAndUpdate(id, { $set: actor });
-    res.status(200).json({
-        status: 'actor eliminado'
-    });
+    
+    var temp = await actor.findById(id);
+
+    if (temp.peliculas.length > 0) {
+        res.status(409).json({
+            mensaje: 'No se pudo completar la solicitud. Elimine las peliculas relacionadas.'
+        });
+    } else {
+        await actor.findByIdAndDelete(id);
+        res.status(200).json({
+            mensaje: 'Actor Eliminado'
+        });
+    }  
 }
 
 module.exports = actorcontroller;

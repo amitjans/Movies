@@ -24,13 +24,19 @@ paiscontroller.edit = async (req, res) => {
 
 paiscontroller.delete = async (req, res) => {
     const { id } = req.params;
-    const pais = {
-        estado: false
-    }
-    await pais.findByIdAndUpdate(id, { $set: pais });
-    res.json({
-        status: 'pais eliminado'
-    });
+    
+    var temp = await pais.findById(id);
+
+    if (temp.peliculas.length > 0) {
+        res.status(409).json({
+            mensaje: 'No se pudo completar la solicitud. Elimine las peliculas relacionadas.'
+        });
+    } else {
+        await pais.findByIdAndDelete(id);
+        res.status(200).json({
+            mensaje: 'Pais Eliminado'
+        });
+    }    
 }
 
 module.exports = paiscontroller;

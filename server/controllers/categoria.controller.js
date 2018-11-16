@@ -29,13 +29,19 @@ categoriacontroller.edit = async (req, res) => {
 
 categoriacontroller.delete = async (req, res) => {
     const { id } = req.params;
-    const categoria = {
-        estado: false
-    }
-    await categoria.findByIdAndUpdate(id, { $set: categoria });
-    res.status(200).json({
-        status: 'categoria eliminada'
-    });
+    
+    var temp = await categoria.findById(id);
+
+    if (temp.peliculas.length > 0) {
+        res.status(409).json({
+            mensaje: 'No se pudo completar la solicitud. Elimine las peliculas relacionadas.'
+        });
+    } else {
+        await categoria.findByIdAndDelete(id);
+        res.status(200).json({
+            mensaje: 'Categoria Eliminada'
+        });
+    }  
 }
 
 module.exports = categoriacontroller;

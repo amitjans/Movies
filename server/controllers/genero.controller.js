@@ -22,20 +22,26 @@ generocontroller.create = async (req, res) => {
 generocontroller.edit = async (req, res) => {
     const { id } = req.params;
     await genero.findByIdAndUpdate(id, { $set: req.body }, { new: true });
-    res.json({
+    res.status(200).json({
         status: 'genero actualizado'
     });
 }
 
 generocontroller.delete = async (req, res) => {
     const { id } = req.params;
-    const genero = {
-        estado: false
-    }
-    await genero.findByIdAndUpdate(id, { $set: genero });
-    res.json({
-        status: 'genero eliminado'
-    });
+    
+    var temp = await genero.findById(id);
+
+    if (temp.peliculas.length > 0) {
+        res.status(409).json({
+            mensaje: 'No se pudo completar la solicitud. Elimine las peliculas relacionadas.'
+        });
+    } else {
+        await genero.findByIdAndDelete(id);
+        res.status(200).json({
+            mensaje: 'Genero Eliminado'
+        });
+    }    
 }
 
 module.exports = generocontroller;

@@ -28,13 +28,18 @@ nacionalidadcontroller.edit = async (req, res) => {
 
 nacionalidadcontroller.delete = async (req, res) => {
     const { id } = req.params;
-    const newnacionalidad = {
-        estado: false
-    }
-    await nacionalidad.findByIdAndUpdate(id, { $set: nacionalidad });
-    res.status(200).json({
-        status: 'nacionalidad eliminada'
-    });
+    var temp = await nacionalidad.findById(id);
+
+    if (temp.actores.length > 0 || temp.directores.length > 0) {
+        res.status(409).json({
+            mensaje: 'No se pudo completar la solicitud. Elimine las peliculas relacionadas.'
+        });
+    } else {
+        await nacionalidad.findByIdAndDelete(id);
+        res.status(200).json({
+            mensaje: 'Nacionalidad Eliminada'
+        });
+    } 
 }
 
 module.exports = nacionalidadcontroller;
