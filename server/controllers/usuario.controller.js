@@ -15,20 +15,28 @@ usuariocontroller.singup = (req, res) => {
                     correo: req.body.correo,
                     contrasena: hash
                 });
-                await user.save();
-                res.status(201).json({
-                    status: 'Usuario guardado'
-                });
+                await user.save().then((result) => {
+                    res.status(201).json({
+                        status: 'Usuario guardado'
+                    });
+                }).catch((err) => {
+                    res.status(409).json({
+                        mensaje: 'El usuario ' + user.correo + ' ya existe en el sistema'
+                    });
+                });;
+                
             }
         });
     });
 }
 
 usuariocontroller.singin = (req, res) => {
+    console.log(req.body.correo);
+    console.log(req.body.contrasena);
     usuario.findOne({ correo: req.body.correo }, function (err, usuario) {
         if (err) {
             res.status(500).json({
-                status: err
+                status: err.menssage
             });
         } else if(usuario === null) {
             res.status(200).json({
@@ -42,6 +50,7 @@ usuariocontroller.singin = (req, res) => {
                     }, 'secret_key');
                     res.status(200).json({
                         status: true,
+                        correo: req.body.correo,
                         menssage: 'Usuario Autenticado',
                         token: token,
                         details: 'Usuario Autenticado Correctamente'
@@ -49,6 +58,7 @@ usuariocontroller.singin = (req, res) => {
                 } else {
                     res.status(403).json({
                         status: false,
+                        correo: req.body.correo,
                         menssage: 'Credenciales incorrectas',
                         token: '',
                         details: err

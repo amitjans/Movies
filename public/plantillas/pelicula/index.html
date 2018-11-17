@@ -1,0 +1,153 @@
+<div class="container" ng-controller="peliculas">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bgm-bluegray">
+                    <h2>Listado de Peliculas <small></small></h2>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table" id="data-table-basic">
+                        <thead>
+                            <tr>
+                                <th>Titulo</th>
+                                <th>A&ntilde;o</th>
+                                <th>Pais</th>
+                                <th>Director</th>
+                                <th>Calificaci&oacute;n</th>
+                                <th colspan="2">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="l in listado">
+                                <td>{{ l.titulo }}</td>
+                                <td>{{ l.ano }}</td>
+                                <td>{{ l.pais.descripcion }}</td>
+                                <td>{{ l.director.nombre }}</td>
+                                <td id="form">
+                                <p class="clasificacion">
+                                    <input id="radio1" type="radio" name="{{ l._id }}" value="5"><label for="radio1">★</label>
+                                    <input id="radio2" type="radio" name="{{ l._id }}" value="4"><label for="radio2">★</label>
+                                    <input id="radio3" type="radio" name="{{ l._id }}" value="3"><label for="radio3">★</label>
+                                    <input id="radio4" type="radio" name="{{ l._id }}" value="2"><label for="radio4">★</label>
+                                    <input id="radio5" type="radio" name="{{ l._id }}" value="1"><label for="radio5">★</label>
+                                    </p>
+                                </td>
+                                <td><span class="btn btn-default" ng-click="update(l)"><i class="zmdi zmdi-edit"></i></span></td>
+                                <td><span class="btn btn-default" ng-click="delete(l._id)"><i class="zmdi zmdi-delete"></i></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card z-depth-1">
+                <div class="form-horizontal" role="form">
+                    <div class="card-header bgm-bluegray">
+                        <h2>{{ accion }} pel&iacute;cula <small></small></h2>
+                    </div>
+                    <div class="card-body card-padding">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">T&iacute;tulo</label>
+                            <div class="col-sm-10">
+                                <div class="fg-line">
+                                    <input type="text" class="form-control input-sm" ng-model="titulo" placeholder="Titulo">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">A&ntilde;o</label>
+                            <div class="col-sm-10">
+                                <div class="fg-line">
+                                    <input type="number" class="form-control input-sm" ng-model="ano" placeholder="Ano">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Duraci&oacute;n</label>
+                            <div class="col-sm-10">
+                                <div class="fg-line">
+                                    <input type="number" class="form-control input-sm" ng-model="duracion" placeholder="Duracion en minutos">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Categor&iacute;a</label>
+                            <div class="col-sm-10">
+                                <div class="fg-line">
+                                    <div class="select">
+                                        <select class="form-control" ng-model="categoria">
+                                            <option ng-repeat="i in listcat" value="{{ i._id }}">{{ i.descripcion }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label class="col-sm-2 control-label">G&eacute;neros</label>
+                                <div class="col-sm-10">
+                                    <div class="fg-line">
+                                        <div class="select">
+                                            <select class="form-control" multiple ng-model="genero">
+                                                <option ng-repeat="i in listgen" value="{{ i._id }}">{{ i.descripcion }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                    <label class="col-sm-2 control-label">Pa&iacute;s</label>
+                                    <div class="col-sm-10">
+                                        <div class="fg-line">
+                                            <div class="select">
+                                                <select class="form-control" ng-model="pais">
+                                                    <option ng-repeat="i in listpais" value="{{ i._id }}">{{ i.descripcion }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Director</label>
+                            <div class="col-sm-10">
+                                <div class="fg-line">
+                                    <div class="select">
+                                        <select class="form-control" ng-model="director">
+                                            <option ng-repeat="i in listdir" value="{{ i._id }}">{{ i.nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Actores</label>
+                            <div class="col-sm-10">
+                                <div class="fg-line">
+                                    <div class="select">
+                                        <select class="form-control" multiple ng-model="actor">
+                                            <option ng-repeat="i in listact" value="{{ i._id }}">{{ i.nombre }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="button" ng-show="icon" class="btn btn-primary btn-sm" ng-click="create()">Guardar</button>
+                                <button type="button" ng-show="!icon" class="btn btn-primary btn-sm" ng-click="updatesend()">Actualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

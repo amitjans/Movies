@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const peliculacontroller = {};
 
 peliculacontroller.getList = async (req, res) => {
-    const peliculas = await pelicula.find();
+    const peliculas = await pelicula.find().populate('pais director');
     res.json(peliculas);
 }
 

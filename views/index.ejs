@@ -16,6 +16,7 @@
   <!-- CSS -->
   <link href="/css/normalize.min.css" rel="stylesheet" />
   <link href="/css/app.min.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet" />
   <style>
     .profile-pic > img {
             border-color: #000000 !important;
@@ -73,23 +74,25 @@
             </div>
 
             <div class="profile-info">
-              Buenos dias
+              Buenos d&iacute;as
               <i class="zmdi zmdi-arrow-drop-down"></i>
             </div>
           </a>
 
           <ul class="main-menu">
             <li>
-              <a href="#"><i class="zmdi zmdi-time-restore"></i> Salir</a>
+              <a href="#" onclick="logoout()"><i class="zmdi zmdi-time-restore"></i> Salir</a>
             </li>
           </ul>
         </div>
 
         <ul class="main-menu">
+            <li><a href="/#!/usuarios/"><i class="zmdi zmdi-account"></i> Autenticarse</a></li>
             <li><a href="/#!/actores/"><i class="zmdi zmdi-account"></i> Actor</a></li>
             <li><a href="/#!/categorias/"><i class="zmdi zmdi-genere"></i> Categor&iacute;a</a></li>
             <li><a href="/#!/directores/"><i class="zmdi zmdi-account"></i> Director</a></li>
             <li><a href="/#!/generos/"><i class="zmdi zmdi-genere"></i> G&eacute;neros</a></li>
+            <li><a href="/#!/peliculas/"><i class="zmdi zmdi-genere"></i> Pel&iacute;culas</a></li>
             <li><a href="/#!/nacionalidades/"><i class="zmdi zmdi-globe"></i> Nacionalidad</a></li>
             <li><a href="/#!/paises/"><i class="zmdi zmdi-globe"></i> Paises</a></li>
         </ul>
@@ -120,11 +123,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular-route.min.js"></script>
   <script src="/js/app.js"></script>
+  <script src="/js/usuario.js"></script>
   <script src="/js/actor.js"></script>
   <script src="/js/categoria.js"></script>
   <script src="/js/director.js"></script>
   <script src="/js/genero.js"></script>
   <script src="/js/nacionalidad.js"></script>
   <script src="/js/pais.js"></script>
+  <script src="/js/pelicula.js"></script>
 </body>
 </html>
